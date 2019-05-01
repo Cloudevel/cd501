@@ -1,0 +1,15 @@
+version: '3'
+services:
+    database: 
+        image: mysql
+        environment: 
+            MYSQL_ROOT_PASSWORD: 0p3n5t4ck
+    webserver:
+        image: nginx:alpine
+        ports:
+            - 8080:80
+        depends_on:
+            - cache
+            - database
+    cache:
+        image: redis
