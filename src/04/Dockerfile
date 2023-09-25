@@ -1,16 +1,16 @@
 #Descarga la imagen
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 # Actualzia el sistema
 RUN apt-get update
 
 # Instala nginx, php-fpm y supervisord
-RUN apt-get install -y nginx php7.0-fpm supervisor && \
+RUN apt-get install -y nginx php7.4 php7.4-fpm supervisor && \
     rm -rf /var/lib/apt/lists/*
 
 #Define las variables de entorno
 ENV nginx_vhost /etc/nginx/sites-available/default
-ENV php_conf /etc/php/7.0/fpm/php.ini
+ENV php_conf /etc/php/7.4/fpm/php.ini
 ENV nginx_conf /etc/nginx/nginx.conf
 ENV supervisor_conf /etc/supervisor/supervisord.conf
 
