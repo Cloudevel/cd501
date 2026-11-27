@@ -78,4 +78,4 @@ git clone https://github.com/Cloudevel/cd501.git
 
 Esta obra está bajo una [Licencia Creative Commons Atribución 4.0 Internacional](https://creativecommons.org/licenses/by/4.0/).
 
-&copy; José Luis Chiquete Valdivieso. 2017-2026.
+&copy; José Luis Chiquete Valdivieso. 2017-2027.
