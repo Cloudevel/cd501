@@ -1,13 +1,15 @@
-version: '3'
+# Ejemplo del cuaderno 12. La contraseña de MySQL no se escribe aquí: se toma
+# de la variable MYSQL_ROOT_PASSWORD o del archivo .env de este directorio
+# (véase .env.example). El archivo .env no se sube al repositorio.
 services:
-    database: 
+    database:
         image: mysql
-        environment: 
-            MYSQL_ROOT_PASSWORD: 0p3n5t4ck
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Defina MYSQL_ROOT_PASSWORD en el archivo .env}
     webserver:
         image: nginx:alpine
         ports:
-            - 8080:80
+            - 8081:80
         depends_on:
             - cache
             - database

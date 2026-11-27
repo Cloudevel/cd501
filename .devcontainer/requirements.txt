@@ -1,0 +1,9 @@
+# Jupyter, kernels y ejecución de los cuadernos del devcontainer de cd501
+# (versiones fijadas). Dependabot propone las actualizaciones.
+jupyterlab==4.6.6
+ipykernel==7.4.0
+bash_kernel==0.10.0
+nbformat==5.11.1
+nbclient==0.11.0
+# Cuaderno 11 (YAML)
+pyyaml==6.0.4

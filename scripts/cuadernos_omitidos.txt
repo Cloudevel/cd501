@@ -1,0 +1,2 @@
+# Cuadernos que la CI no ejecuta (ninguno por ahora).
+# Las celdas opcionales de Docker Hub del 06 llevan la etiqueta skip-execution.

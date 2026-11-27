@@ -1,0 +1,51 @@
+{
+  "name": "cd501 · Docker (Cloudevel)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  // Docker-in-Docker: un demonio de Docker propio dentro del devcontainer.
+  // La feature ejecuta el contenedor en modo privilegiado. Incluye el plugin
+  // docker compose y buildx.
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:4.1.3": {
+      "moby": true,
+      "installDockerBuildx": true,
+      "dockerDashComposeVersion": "latest"
+    }
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "32gb"
+  },
+  // 8080: servidor web de los cuadernos 04 y 05; 8081: Compose (cuaderno 12);
+  // 8082: servicio de Swarm (cuaderno 09); 5000: registry privado (cuaderno 10).
+  "forwardPorts": [8080, 8081, 8082, 5000],
+  "portsAttributes": {
+    "8080": { "label": "Servidor web de los ejercicios", "onAutoForward": "notify" },
+    "8081": { "label": "Compose (cuaderno 12)", "onAutoForward": "silent" },
+    "8082": { "label": "Servicio de Swarm (cuaderno 09)", "onAutoForward": "silent" },
+    "5000": { "label": "Registry privado (cuaderno 10)", "onAutoForward": "silent" }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "files.exclude": {
+          "**/.ipynb_checkpoints": true
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers"
+      ]
+    },
+    "codespaces": {
+      "openFiles": ["README.md"]
+    }
+  },
+  "remoteUser": "vscode"
+}

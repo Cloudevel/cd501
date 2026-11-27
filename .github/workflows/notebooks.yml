@@ -1,0 +1,43 @@
+# Ejecuta los cuadernos del curso, en orden, dentro del mismo
+# devcontainer que usan los estudiantes: Python 3.12, Jupyter y Docker-in-Docker.
+# El demonio de Docker es el de la feature docker-in-docker (contenedor
+# privilegiado), igual que en GitHub Codespaces. Las celdas opcionales de
+# Docker Hub (cuaderno 06) llevan skip-execution: la CI no usa credenciales.
+name: Cuadernos
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Versión fija del CLI de Dev Containers (actualizar a mano).
+  DEVCONTAINER_CLI: "@devcontainers/cli@0.91.0"
+
+jobs:
+  cuadernos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Construir y levantar el devcontainer
+        run: npx --yes "${DEVCONTAINER_CLI}" up --workspace-folder .
+
+      - name: Ejecutar los cuadernos
+        run: >-
+          npx --yes "${DEVCONTAINER_CLI}" exec --workspace-folder .
+          python scripts/ejecutar_cuadernos.py
+          --omitir scripts/cuadernos_omitidos.txt --timeout 600
